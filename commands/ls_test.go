@@ -10,8 +10,11 @@ import (
 
 var lines []string
 
-func output(s string) {
-	lines = append(lines, s)
+func output(args ...interface{}) (int, error) {
+	for _, s := range args {
+		lines = append(lines, s.(string))
+	}
+	return 0, nil
 }
 
 func getHosts() []string {

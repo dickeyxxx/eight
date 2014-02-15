@@ -5,7 +5,7 @@ import (
 )
 
 type getHostsFn func() []string
-type outputFn func(string)
+type outputFn func(...interface {}) (int, error)
 
 func LsCommand(getHosts getHostsFn, output outputFn) cli.Command {
 	return cli.Command{
