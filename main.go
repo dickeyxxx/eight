@@ -12,8 +12,8 @@ import (
 )
 
 func main() {
-  etcdClient := etcd.NewClient([]string{"http://127.0.0.1:4001"})
-  hosts := hosts.NewClient(etcdClient)
+	etcdClient := etcd.NewClient([]string{"http://127.0.0.1:4001"})
+	hosts := hosts.NewClient(etcdClient)
 	app := cli.NewApp()
 	app.Version = "0.0.1"
 	app.Commands = []cli.Command{

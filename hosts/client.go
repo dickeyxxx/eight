@@ -1,8 +1,8 @@
 package hosts
 
 import (
-  "log"
-  "github.com/coreos/go-etcd/etcd"
+	"github.com/coreos/go-etcd/etcd"
+	"log"
 )
 
 type etcdClient interface {
@@ -10,26 +10,26 @@ type etcdClient interface {
 }
 
 type Client struct {
-  etcd etcdClient
+	etcd etcdClient
 }
 
 func NewClient(c etcdClient) *Client {
-  return &Client{
-    etcd: c,
-  }
+	return &Client{
+		etcd: c,
+	}
 }
 
 func (c *Client) GetHosts() []string {
-  response, err := c.etcd.Get("hosts", false, false)
-  values := []string{}
+	response, err := c.etcd.Get("hosts", false, false)
+	values := []string{}
 
-  if(err != nil) {
-    log.Fatal(err)
-  }
+	if err != nil {
+		log.Fatal(err)
+	}
 
-  for _, n := range response.Node.Nodes {
-    values = append(values, n.Key)
-  }
+	for _, n := range response.Node.Nodes {
+		values = append(values, n.Key)
+	}
 
 	return values
 }
