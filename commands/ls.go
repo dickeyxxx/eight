@@ -5,7 +5,7 @@ import (
 )
 
 type clientInterface interface{
-  GetDir(string) []string
+  GetHosts() []string
 }
 type outputFn func(...interface{}) (int, error)
 
@@ -14,7 +14,7 @@ func LsCommand(client clientInterface, output outputFn) cli.Command {
     Name:  "ls",
     Usage: "retrieve the hosts",
     Action: func(c *cli.Context) {
-      for _, host := range client.GetDir("hosts") {
+      for _, host := range client.GetHosts() {
         output(host)
       }
     },

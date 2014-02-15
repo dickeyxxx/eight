@@ -1,4 +1,4 @@
-package eight
+package hosts
 
 import (
   "log"
@@ -19,8 +19,8 @@ func NewClient(c etcdClient) *Client {
   }
 }
 
-func (c *Client) GetDir(key string) []string {
-  response, err := c.etcd.Get(key, false, false)
+func (c *Client) GetHosts() []string {
+  response, err := c.etcd.Get("hosts", false, false)
   values := []string{}
 
   if(err != nil) {

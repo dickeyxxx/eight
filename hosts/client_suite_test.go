@@ -1,4 +1,4 @@
-package eight_test
+package hosts_test
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -9,5 +9,5 @@ import (
 
 func TestEight(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Eight Suite")
+	RunSpecs(t, "Client Suite")
 }

@@ -1,7 +1,7 @@
-package eight_test
+package hosts_test
 
 import (
-	. "github.com/dickeyxxx/eight/eight"
+	. "github.com/dickeyxxx/eight/hosts"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/coreos/go-etcd/etcd"
@@ -14,13 +14,13 @@ func (c *fakeEtcdClient) Get(string, bool, bool) (*etcd.Response, error) {
     Node: &etcd.Node{
       Nodes: []etcd.Node{
         etcd.Node{
-          Key: "bar",
+          Key: "10.0.0.1",
         },
         etcd.Node{
-          Key: "bar",
+          Key: "10.0.0.2",
         },
         etcd.Node{
-          Key: "bam",
+          Key: "10.0.0.3",
         },
       },
     },
@@ -28,15 +28,15 @@ func (c *fakeEtcdClient) Get(string, bool, bool) (*etcd.Response, error) {
   return node, nil
 }
 
-var _ = Describe("Eight Client", func() {
+var _ = Describe("Hosts client", func() {
 	var client *Client
 
 	BeforeEach(func() {
 		client = NewClient(&fakeEtcdClient{})
 	})
 
-	It("returns a whole directory", func() {
-		values := client.GetDir("foo")
-		Ω(values).Should(Equal([]string{"bar", "bar", "bam"}))
+	It("returns all the hosts", func() {
+		values := client.GetHosts()
+		Ω(values).Should(Equal([]string{"10.0.0.1", "10.0.0.2", "10.0.0.3"}))
 	})
 })

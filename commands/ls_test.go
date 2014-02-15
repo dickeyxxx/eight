@@ -18,9 +18,9 @@ func output(args ...interface{}) (int, error) {
   return 0, nil
 }
 
-type fakeClient struct{}
+type fakeHosts struct{}
 
-func (fakeClient) GetDir(string) []string {
+func (fakeHosts) GetHosts() []string {
   return hosts
 }
 
@@ -28,8 +28,8 @@ var _ = Describe("ls", func() {
   var command cli.Command
 
   BeforeEach(func() {
-    client := fakeClient{}
-    command = LsCommand(client, output)
+    hosts := fakeHosts{}
+    command = LsCommand(hosts, output)
   })
 
   It("shows a list of hosts", func() {
